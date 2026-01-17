@@ -67,6 +67,7 @@ It’s designed to support **contextual, comparative draft evaluation**, not hot
 - Caps each year to the **actual number of draft picks**
 - Aggregates value by position
 - Visualizes each position against historical baselines
+- Consensus big boards list DL; these are treated as DT for analysis.
 
 Raw ranking data is not redistributed; the focus is on **derived metrics and visual analysis**.
 
