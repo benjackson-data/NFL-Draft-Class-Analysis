@@ -1,103 +1,99 @@
-# NFL Draft Class Position & Value Analysis
+# NFL Draft Class Visual Analysis (Positional Strength Tracker)
 
-A data analytics project that aggregates and evaluates NFL draft classes over the last 10+ years, quantifying positional strength and visualizing historical trends. The project also tracks the 2026 class in real time using consensus pre-draft big boards.
+This project builds a **visual, position-by-position analysis of NFL draft class strength** using historical consensus big boards (10+ years) and draft value modeling. The end goal is a set of clear visuals that let you compare any upcoming class (starting with **2026**) against historical context as the consensus board changes over time.
 
----
-
-## Motivation
-
-Evaluating NFL draft classes is a complex task: multiple mock boards exist, player names and positions are inconsistent, and historical comparisons require standardization. Doing this manually is slow and error-prone.  
-
-The goal of this project is to **automate the process**, provide clear insights into positional draft class strength, and create a framework for ongoing evaluation of future drafts.
+> Note: A small supporting component of this project is position/college standardization (e.g., using Pro-Football-Reference labels) to make historical comparisons consistent. The visuals and draft class evaluation are the primary objective.
 
 ---
 
-## The Challenge
+## Goal
 
-Key challenges included:
+Create an analytics workflow that:
 
-- **Inconsistent player names**: Jr./Sr. suffixes, nicknames, and spelling variations  
-- **Duplicate names**: Multiple players sharing first + last names  
-- **Position standardization**: EDGE vs DE, OT vs T, IOL vs G/C  
-- **Data access**: Historical big boards and PFR data in multiple formats  
-- **Automation**: Avoiding blocked redirects and scraping pitfalls  
-
----
-
-## Approach / Solution
-
-The project evolved in several iterations:
-
-1. **Initial Approach**:  
-   - Attempted direct searches on Pro-Football-Reference via Google Apps Script  
-   - Encountered errors and blocked redirects → needed a more reliable source  
-
-2. **Refinement 1**:  
-   - Scraped **player index pages by last-name letter**  
-   - Automated **position lookups** into Google Sheets while preserving existing data  
-   - Added logging and error handling for reliability  
-
-3. **Refinement 2**:  
-   - Introduced **college validation** to resolve duplicates and flag mismatches  
-   - Ensured higher accuracy for players with identical names  
-
-4. **Draft Value Metrics**:  
-   - Calculated **cumulative draft value** per position using Rich Hill’s trade value chart  
-   - Counted **draft-worthy players** per position (capped by total draft picks per year)  
-   - Computed **average draft value per player** (`cumulative ÷ # of players`)  
+- Ingests **pre-draft consensus big boards** by year (historical + ongoing 2026 updates)
+- Standardizes players into canonical positions:
+  **QB, RB, WR, TE, OT, IOL, DT, EDGE, LB, CB, S**
+- Converts board rank → **draft pick** (capped to total picks in that year)
+- Applies a **draft value chart** (Rich Hill baseline; may compare alternatives)
+- Produces visuals that communicate **positional strength** across years and for 2026 in context
 
 ---
 
-## Tech Stack & Skills
+## Core Metrics (per position, per year)
 
-- **Google Sheets & Apps Script** for automation and data aggregation  
-- **Regex & HTML parsing** for structured scraping  
-- **Error handling & rate limiting** for robustness  
-- **Data analysis**: aggregation, metrics, and basic statistics  
-- **Visualization planning**: box-and-whisker plots for positional strength  
+1. **Cumulative Draft Value** (primary)
+   - Sum of pick-values for the top N “draft-worthy” players at a position (N capped by total picks that year)
 
-This project demonstrates **real-world data cleaning, automation, and iterative problem-solving** skills.
+2. **# Draft-Worthy Players**
+   - Count of players at that position within the top N overall players for that year (N = total draft picks)
+
+3. **Average Draft Value per Player**
+   - `Cumulative Draft Value ÷ # Draft-Worthy Players`
+
+Working theory: **cumulative value** best captures “how strong is this position group overall?”
 
 ---
 
-## Results (Current Status)
+## Visualization Plan
 
-- Fully automated **historical position lookups** (~250 players per year)  
-- Column E in Google Sheets populated with verified positions  
-- College validation reduces mismatches and ensures accurate mapping  
-- Draft value calculations completed for historical data  
-- Ready to integrate the **2026 draft class** for ongoing updates  
+Primary idea (initial prototype):
+
+- For each position:
+  - Show historical distribution (e.g., **box-and-whisker** or similar)
+  - Include **mean** and a variability indicator (e.g., ±1 standard deviation or quartiles)
+  - Overlay the **2026** class value as a point/marker as it evolves
+
+This may evolve into clearer visuals (e.g., rank-ordered bars, ridgeline distributions, or small multiples) depending on readability.
+
+---
+
+## Supporting Pipeline Work (Secondary)
+
+To make historical comparisons reliable, the project includes automation and validation steps such as:
+
+- Standardizing position labels across sources (e.g., DE vs EDGE, OT vs T, IOL vs G/C)
+- Handling naming inconsistencies (Jr./Sr., nicknames, punctuation)
+- Disambiguating duplicate names using college as a tiebreaker
+- Rate limiting + error handling for reliable enrichment workflows
+
+---
+
+## Approach / Iterations So Far
+
+1. **Automation prototyping**
+   - Early attempts at direct lookups ran into redirect/method limitations in Apps Script.
+
+2. **Reliable enrichment**
+   - Switched to Pro-Football-Reference player index pages to support repeatable position lookups in Google Sheets while preserving original data.
+
+3. **Accuracy improvements**
+   - Added college-based validation to reduce mis-matches and handle same-name collisions.
+
+These steps support the bigger goal: **clean, consistent historical datasets to power the draft class visuals.**
+
+---
+
+## Tech Stack
+
+- Google Sheets & Apps Script (automation + enrichment)
+- Regex & HTML parsing
+- Data aggregation + custom metric modeling
+- Visualization tooling planned (Python/Plotly/matplotlib or Google-native charts)
+
+---
+
+## Status
+
+- Position enrichment workflow working and scalable to a full draft class size (250–265)
+- Historical big board ingestion is the next major automation piece
+- Draft value modeling and visuals are the primary deliverables in progress
 
 ---
 
 ## Next Steps
 
-- Pull full consensus big boards for 2026 automatically  
-- Map all historical positions to canonical positions (QB, RB, WR, TE, OT, IOL, DT, EDGE, LB, CB, S)  
-- Generate visualizations:
-  - **Box-and-whisker plots** for historical positional draft value ±1 SD  
-  - Overlay 2026 class for comparative context  
-- Implement **fuzzy name matching** for Jr./Sr./nickname variants  
-- Optionally create an **interactive dashboard** for dynamic mock board updates  
-
----
-
-## Example Output
-
-| Player Name      | Your Pos | College   | Draft Yr | PFR Pos |
-|-----------------|----------|-----------|----------|---------|
-| Micah Parsons    | LB       | Penn St.  | 2021     | LB      |
-| Tom Brady        | QB       | Michigan  | 2000     | QB      |
-| Chase Young      | EDGE     | Ohio St.  | 2020     | EDGE    |
-| Tristan Wirfs    | OT       | Iowa      | 2020     | OT      |
-
-*Sample output from the position lookup and validation pipeline.*
-
----
-
-## Visualization Concept (Planned)
-
-- **Box-and-whisker plots** per position to show historical draft value spread  
-- **Overlay 2026 class** for each position to provide context  
-- Optional interactive charts to dynamically track changes as mocks update  
-
+- Automate importing consensus big boards for 10+ years and ongoing 2026 snapshots
+- Canonical position mapping (QB/RB/WR/TE/OT/IOL/DT/EDGE/LB/CB/S)
+- Implement Rich Hill value mapping and compute yearly positional metrics
+- Build the first visualization set and iterate for clarity
+- Add fuzzy matching for name variants and better duplicate handling
