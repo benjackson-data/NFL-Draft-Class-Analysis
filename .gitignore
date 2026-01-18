@@ -1,10 +1,6 @@
 # Raw proprietary data (not committed)
 data/raw/
 
-# Processed outputs
-data/processed/
-reports/
-
 # Python artifacts (for later)
 __pycache__/
 *.parquet
