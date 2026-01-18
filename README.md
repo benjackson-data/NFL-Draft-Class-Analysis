@@ -126,19 +126,20 @@ These tradeoffs are intentional and documented to preserve analytical clarity an
 
 ## Project Structure
 
-
+```text
 nfl-draft-analytics/
-data/
-raw/
-reference/
-processed/
-src/
-make_position_summary.py
-combine_position_summaries.py
-score_2026_vs_history.py
-plot_*.py
-reports/
-*.png
+  data/
+    raw/            # consensus big boards (2016–2026)
+    reference/      # draft value charts, pick counts
+    processed/      # per-year + historical summaries
+  src/
+    make_position_summary.py
+    combine_position_summaries.py
+    score_2026_vs_history.py
+    plot_*.py
+  reports/
+    *.png           # generated charts
+
 
 ---
 
