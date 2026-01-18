@@ -94,6 +94,12 @@ While the 2026 class includes a projected top-of-the-draft quarterback and anoth
 
 ## Visualizations
 
+### 2026 vs History (Boxplots + overlay)
+![Boxplots](reports/history_boxplots_with_2026_overlay.png)
+
+### 2026 Position Strength (Radar z-scores)
+![Radar](reports/2026_position_strength_radar_zscores.png)
+
 The project includes multiple complementary views of the same underlying data:
 
 - **Bar charts** comparing 2026 vs historical averages
@@ -147,6 +153,13 @@ nfl-draft-analytics/
     *.png           # generated charts
 
 ```
+---
+
+## Reproducibility
+
+Raw consensus big board data are not included due to licensing restrictions.  
+All analyses were performed using Python (pandas, numpy, matplotlib) and are reproducible with equivalent big board inputs following the documented schema.
+
 ---
 
 ## Possible Extensions
