@@ -82,8 +82,7 @@ These positions are not just strong in absolute terms — they are **meaningfull
 - **IOL**  
   *(DT is also below average, though not as extreme)*
 
-In particular, the QB class lacks the kind of elite draft-capital anchor that typically defines strong quarterback years.
-
+While the 2026 class includes a projected top-of-the-draft quarterback and another potential first-round selection, it remains below historical averages in cumulative draft value. This reflects a **top-heavy quarterback class** rather than one defined by depth, with fewer draftable QBs contributing value beyond the early rounds.
 ---
 
 ## Visualizations
@@ -140,7 +139,7 @@ nfl-draft-analytics/
   reports/
     *.png           # generated charts
 
-
+```
 ---
 
 ## Possible Extensions
