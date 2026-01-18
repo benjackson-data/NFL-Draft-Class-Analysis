@@ -34,6 +34,8 @@ This project captures *both* by aggregating **Rich Hill draft value** across pos
 - **Per-year total draft pick counts**  
   Ensures each class is capped consistently based on how many players were actually drafted.
 
+---
+
 ## Data Availability
 
 Raw consensus big board files are not included in this repository, as they were sourced from a premium subscription service. All analyses are fully reproducible using equivalent publicly available rankings or user-provided big board data following the same schema.
