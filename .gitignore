@@ -3,7 +3,7 @@ data/raw/
 
 # Processed outputs
 data/processed/
-reports/
+# reports/
 
 # Python artifacts (for later)
 __pycache__/
