@@ -1,91 +1,107 @@
-# How Strong Is This Draft Class?  
-### A Position-by-Position NFL Draft Analysis
+# NFL Draft Class Strength by Position (2016–2026)
 
-This project answers a simple question:
+## Overview
 
-> **“How good is this year’s group of QBs, WRs, EDGE rushers, etc., compared to other draft classes?”**
+This project answers a simple but often hand-waved question:
 
-To do that, it builds a visual, data-driven comparison of NFL draft classes by position using historical consensus big boards and draft value modeling.
+> **How strong is a given NFL draft class by position (QB, WR, EDGE, etc.) compared to history?**
 
----
+Rather than relying on narrative or isolated prospect rankings, this analysis uses **draft capital as revealed preference** — how teams actually value positions in aggregate — and compares each draft class to historical baselines.
 
-## The Core Idea (TL;DR)
-
-Every draft class has strengths and weaknesses by position.
-
-Some years are:
-- QB-heavy
-- Deep at WR
-- Weak at OT
-- Loaded with defensive linemen
-
-This project quantifies that by:
-1. Taking **consensus pre-draft rankings**
-2. Converting rankings into **draft pick value**
-3. Summing that value **by position**
-4. Comparing each position group to history
-
-The result:  
-👉 A clear picture of **which positions are strong or weak in a given draft class**, including the upcoming **2026 NFL Draft**.
+The primary focus is on evaluating the **2026 draft class** in context, using drafts from **2016–2025** as the historical reference window.
 
 ---
 
-## What “Strength” Means Here
+## Core Idea
 
-For each position (QB, WR, EDGE, etc.), the project calculates:
+A draft class can be “strong” at a position in two different ways:
 
-### 1. Cumulative Draft Value (most important)
-- How much total draft capital exists at that position in a given year
-- Answers: *“How much value is there overall?”*
+- **Elite talent at the top** (high-value early picks)
+- **Depth throughout the draft** (many draftable players accumulating value)
 
-### 2. Number of Draft-Worthy Players
-- How many players at that position appear within the total number of draft picks that year
-- Answers: *“Is this position deep?”*
-
-### 3. Average Draft Value per Player
-- Cumulative value ÷ number of players
-- Answers: *“Is this top-heavy or evenly strong?”*
+This project captures *both* by aggregating **Rich Hill draft value** across positions and standardizing results relative to history.
 
 ---
 
-## Why This Is Useful
+## Methodology (High Level)
 
-This framework helps answer questions like:
-- “Is this a good year to need a quarterback?”
-- “Should teams prioritize WR in this draft?”
-- “Is this EDGE class unusually strong or just average?”
-- “How does the 2026 class compare to the last 10 years?”
+For each draft year:
 
-It’s designed to support **contextual, comparative draft evaluation**, not hot takes.
+1. Read the consensus big board  
+2. Cap the board to that year’s total draft picks  
+3. Map rank → pick → Rich Hill value  
+4. Aggregate by position:
+   - cumulative draft value  
+   - number of players  
+   - average value per player  
 
----
+For historical comparison (2016–2025):
 
-## Data & Method (High Level)
-
-- Uses **consensus big boards** to reduce individual evaluator bias
-- Converts rank → draft pick → draft value (Rich Hill chart)
-- Caps each year to the **actual number of draft picks**
-- Aggregates value by position
-- Visualizes each position against historical baselines
-
-Raw ranking data is not redistributed; the focus is on **derived metrics and visual analysis**.
+5. Build per-position distributions of cumulative value  
+6. Compare 2026 directly against those distributions  
 
 ---
 
-## Current Status
+## Visualizations
 
-- Historical boards (2016–2025) prepared locally
-- Reference draft value tables committed
-- First aggregation scripts in progress
-- Visualization design underway
-- 2026 class will be tracked dynamically as rankings change
+### 2026 vs History (Boxplots + overlay)
+![Boxplots](reports/history_boxplots_with_2026_overlay.png)
+
+This shows where each position group falls relative to the last decade.
 
 ---
 
-## End Goal
+### 2026 Movement (Snapshot Comparison)
+![Movement](reports/history_boxplots_with_2026_movement.png)
 
-A simple, repeatable way to generate a report like:
+This tracks how the 2026 class is changing over time.
 
-> “Here’s how strong the 2026 QB class is compared to the last decade.”
+- **X marker** = previous snapshot  
+- **Dot** = current snapshot  
+- **Green/red number** = change in total draft capital  
+- **( ) number** = change in number of draftable players  
 
-With charts that make the answer obvious at a glance.
+---
+
+### 2026 Position Strength (Radar z-scores)
+![Radar](reports/2026_position_strength_radar_zscores.png)
+
+A high-level summary of which positions are strong or weak vs history.
+
+---
+
+## Key Insights (Latest Update)
+
+- **LB (+235, +3)**: Rising in both value and depth  
+- **RB (+189, +6)**: Increasing number of draftable players  
+- **OT (+126, -8)**: More top-heavy (higher value, less depth)  
+- **WR (-74, +3)**: Deeper but less concentrated at the top  
+- **EDGE (-204, -4)**: Declining in both depth and value  
+- **QB (-436, 0)**: Significant drop in value without loss of depth  
+
+---
+
+## Why This Approach Works
+
+- Uses **draft capital**, not opinion, as the valuation signal  
+- Separates **depth vs top-end strength**  
+- Anchors analysis in **historical context**  
+- Updates dynamically as rankings change  
+
+---
+
+## Project Structure
+
+```text
+nfl-draft-analytics/
+  data/
+    raw/
+    reference/
+    processed/
+  src/
+    make_position_summary.py
+    combine_position_summaries.py
+    score_2026_vs_history.py
+    plot_*.py
+  reports/
+    *.png
