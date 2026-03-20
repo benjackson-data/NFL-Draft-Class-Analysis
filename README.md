@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project answers a simple but often hand-waved question:
+This project answers a simple but often hand-waved question — and extends it to track how those answers change over time:
 
 > **How strong is a given NFL draft class by position (QB, WR, EDGE, etc.) compared to history?**
 
@@ -97,6 +97,9 @@ While the 2026 class includes a projected top-of-the-draft quarterback and anoth
 ### 2026 vs History (Boxplots + overlay)
 ![Boxplots](reports/history_boxplots_with_2026_overlay.png)
 
+### 2026 Movement (Snapshot Comparison)
+![Movement](reports/history_boxplots_with_2026_movement.png)
+
 ### 2026 Position Strength (Radar z-scores)
 ![Radar](reports/2026_position_strength_radar_zscores.png)
 
@@ -113,6 +116,62 @@ The radar chart uses:
   - green = strong vs history
   - yellow = near average
   - red = weak vs history
+
+---
+
+🔄 Positional Movement (2026 Big Board Updates)
+
+In addition to comparing the 2026 class to historical baselines, this project also tracks how positional draft capital changes over time as the consensus big board evolves.
+
+Methodology
+
+Save snapshots of the 2026 position value summary over time
+
+Compare cumulative Rich Hill value by position between snapshots
+
+Track:
+
+change in total draft capital
+
+change in number of draftable players
+
+Visualization: Movement Overlay
+
+This chart extends the historical boxplot view by adding:
+
+✕ (X marker) = previous 2026 snapshot
+
+● (dot) = current 2026 snapshot
+
+Labels:
+
+Green/red number = change in total draft capital
+
+( ) number = change in draftable players
+
+Key Insights (Latest Update)
+
+LB (+235, +3): Significant rise driven by both depth and upward re-ranking
+
+RB (+189, +6): More players entering the draftable pool
+
+OT (+126, -8): Increasing top-end value with reduced depth (more top-heavy)
+
+WR (-74, +3): Greater depth but less concentrated high-end value
+
+EDGE (-204, -4): Decline in both depth and premium capital
+
+QB (-436, 0): Major drop in top-end valuation despite unchanged player count
+
+Interpretation
+
+This framework separates two different types of movement:
+
+Value change → where draft capital is shifting
+
+Count change → whether depth is increasing or decreasing
+
+Together, this provides a clearer picture of how the draft “market” is evolving beyond simple rank changes.
 
 ---
 
